@@ -1,0 +1,10 @@
+FROM julia:1.9
+
+RUN julia -e 'using Pkg; Pkg.add(["Catalyst", "DifferentialEquations", "HTTP", "JSON"])'
+
+COPY src/ /app/src/
+COPY config/config.json /app/config/
+
+WORKDIR /app/src
+
+CMD ["julia", "CatalystServer.jl"]
