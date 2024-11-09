@@ -1,0 +1,9 @@
+services:
+  chemist-engine-catalyst-jl:
+    build:
+      context: .
+      dockerfile: Dockerfile.catalyst-jl
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+
