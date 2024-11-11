@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package chemistry;
+
+// Reaction request and response
+message ReactionRequest {
+    string species = 1;
+    double rate_constant = 2;
+}
+
+message ReactionResponse {
+    string result = 1;
+}
+
+// Thermodynamics request and response
+message ThermodynamicsRequest {
+    string parameters = 1;
+}
+
+message ThermodynamicsResponse {
+    string result = 1;
+}
+
+// Define the service with both methods
+service ChemistryService {
+    rpc ComputeReaction(ReactionRequest) returns (ReactionResponse);
+    rpc ComputeThermodynamics(ThermodynamicsRequest) returns (ThermodynamicsResponse);
+}
