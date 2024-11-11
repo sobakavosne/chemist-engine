@@ -4,7 +4,7 @@ package chemistry;
 
 // Reaction request and response
 message ReactionRequest {
-    string species = 1;
+    repeated string species = 1;
     double rate_constant = 2;
 }
 

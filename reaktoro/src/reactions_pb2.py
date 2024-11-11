@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0freactions.proto\x12\tchemistry\"9\n\x0fReactionRequest\x12\x0f\n\x07species\x18\x01 \x01(\t\x12\x15\n\rrate_constant\x18\x02 \x01(\x01\"\"\n\x10ReactionResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"+\n\x15ThermodynamicsRequest\x12\x12\n\nparameters\x18\x01 \x01(\t\"(\n\x16ThermodynamicsResponse\x12\x0e\n\x06result\x18\x01 \x01(\t2\xbc\x01\n\x10\x43hemistryService\x12J\n\x0f\x43omputeReaction\x12\x1a.chemistry.ReactionRequest\x1a\x1b.chemistry.ReactionResponse\x12\\\n\x15\x43omputeThermodynamics\x12 .chemistry.ThermodynamicsRequest\x1a!.chemistry.ThermodynamicsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0freactions.proto\x12\tchemistry\"9\n\x0fReactionRequest\x12\x0f\n\x07species\x18\x01 \x03(\t\x12\x15\n\rrate_constant\x18\x02 \x01(\x01\"\"\n\x10ReactionResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"+\n\x15ThermodynamicsRequest\x12\x12\n\nparameters\x18\x01 \x01(\t\"(\n\x16ThermodynamicsResponse\x12\x0e\n\x06result\x18\x01 \x01(\t2\xbc\x01\n\x10\x43hemistryService\x12J\n\x0f\x43omputeReaction\x12\x1a.chemistry.ReactionRequest\x1a\x1b.chemistry.ReactionResponse\x12\\\n\x15\x43omputeThermodynamics\x12 .chemistry.ThermodynamicsRequest\x1a!.chemistry.ThermodynamicsResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)

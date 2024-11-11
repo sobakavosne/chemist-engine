@@ -1,30 +1,28 @@
-from concurrent import futures
 import grpc
-import chemistry_pb2
-import chemistry_pb2_grpc
-from reactions import compute_reaction
-from thermo import compute_thermodynamics
+from concurrent import futures
+import reactions_pb2
+import reactions_pb2_grpc
 
-class ChemistryService(chemistry_pb2_grpc.ChemistryServiceServicer):
+
+class ChemistryService(reactions_pb2_grpc.ChemistryServiceServicer):
     def ComputeReaction(self, request, context):
-        # Use the provided data to compute the reaction
-        result = compute_reaction({
-            "species": request.species,
-            "rate_constant": request.rate_constant
-        })
-        return chemistry_pb2.ReactionResponse(result=result)
+        # Sample response; replace with your logic
+        return reactions_pb2.ReactionResponse(result="Computed reaction")
 
     def ComputeThermodynamics(self, request, context):
-        # Use the provided data to compute thermodynamics
-        result = compute_thermodynamics({"parameters": request.parameters})
-        return chemistry_pb2.ThermodynamicsResponse(result=result)
+        # Sample response; replace with your logic
+        return reactions_pb2.ThermodynamicsResponse(result="Computed thermodynamics")
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    chemistry_pb2_grpc.add_ChemistryServiceServicer_to_server(ChemistryService(), server)
-    server.add_insecure_port('[::]:50051')
+    reactions_pb2_grpc.add_ChemistryServiceServicer_to_server(
+        ChemistryService(), server
+    )
+    server.add_insecure_port("[::]:50051")  # Ensure it listens on port 50051
     server.start()
     server.wait_for_termination()
+
 
 if __name__ == "__main__":
     serve()

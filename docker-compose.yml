@@ -3,8 +3,22 @@ services:
     build:
       context: ./reaktoro
       dockerfile: Dockerfile.reaktoro
+    command: [ "conda", "run", "--no-capture-output", "-n", "rkt", "python", "src/grpc_server.py" ]
     ports:
       - "50051:50051"
+    restart: unless-stopped
+
+  chemist-engine-flask:
+    build:
+      context: ./reaktoro
+      dockerfile: Dockerfile.reaktoro
+    command: [ "conda", "run", "--no-capture-output", "-n", "rkt", "python", "src/app.py" ]
+    ports:
+      - "5000:5000"
+    environment:
+      - GRPC_SERVER_HOST=chemist-engine-reaktoro
+    depends_on:
+      - chemist-engine-reaktoro
     restart: unless-stopped
 
   chemist-engine-catalyst-jl:
