@@ -1,4 +1,9 @@
-Analytical engine API utilized Catalyst.jl 
+Analytical engine API:
+  
+  - Reaktoro 
+  - Catalyst.jl
+
+Leal, A.M.M. (2015). Reaktoro: An open-source unified framework for modeling chemically reactive systems. https://reaktoro.org
 
 @article{CatalystPLOSCompBio2023,
  doi = {10.1371/journal.pcbi.1011530},
