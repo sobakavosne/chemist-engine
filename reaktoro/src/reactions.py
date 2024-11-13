@@ -1,9 +1,7 @@
 import reaktoro
 
 
-def compute_reaction(data):
-    reactants = data.get("reactants")
-    conditions = data.get("conditions")
+def compute_reaction(species, rate_constant):
     # Implement reaction computation using Reaktoro
     # Example:
     # result = reaktoro.compute(reactants, conditions)

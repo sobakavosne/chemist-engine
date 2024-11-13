@@ -1,52 +1,52 @@
-import os
-import grpc
+import logging
 from flask import Flask, request, jsonify
-import reactions_pb2
-import reactions_pb2_grpc
+from reactions import compute_reaction
+from thermo import compute_thermodynamics
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-
-# Use Docker service name to connect to the gRPC server
-grpc_server_host = os.getenv("GRPC_SERVER_HOST", "chemist-engine-reaktoro")
-channel = grpc.insecure_channel(f"{grpc_server_host}:50051")
-stub = reactions_pb2_grpc.ChemistryServiceStub(channel)
 
 
 @app.route("/reactions", methods=["POST"])
 def reactions():
     data = request.json
+    logger.info("Received POST request on /reactions with data: %s", data)
 
     # Ensure data has the correct structure
     try:
         species = data["species"]  # Should be a list of strings
         rate_constant = float(data["rate_constant"])  # Ensure it's a float
     except (KeyError, TypeError, ValueError) as e:
+        logger.error("Invalid input data: %s", e)
         return jsonify({"error": f"Invalid input data: {e}"}), 400
 
-    # Prepare the gRPC request
-    reaction_request = reactions_pb2.ReactionRequest(
-        species=species, rate_constant=rate_constant
-    )
-
-    # Make the gRPC call
-    try:
-        reaction_response = stub.ComputeReaction(reaction_request)
-        return jsonify({"result": reaction_response.result})
-    except grpc.RpcError as e:
-        return jsonify({"error": f"gRPC error: {e.details()}"}), 500
+    # Compute reaction result
+    result = compute_reaction(species, rate_constant)
+    logger.info("Reaction computation result: %s", result)
+    return jsonify({"result": result})
 
 
 @app.route("/thermodynamics", methods=["POST"])
 def thermodynamics():
     data = request.json
-    # Prepare the gRPC request
-    thermo_request = reactions_pb2.ThermodynamicsRequest(parameters=data["parameters"])
-    # Make the gRPC call
-    thermo_response = stub.ComputeThermodynamics(thermo_request)
-    return jsonify({"result": thermo_response.result})
+    logger.info("Received POST request on /thermodynamics with data: %s", data)
+
+    # Compute thermodynamics result
+    try:
+        parameters = data["parameters"]
+    except KeyError as e:
+        logger.error("Invalid input data: %s", e)
+        return jsonify({"error": f"Invalid input data: {e}"}), 400
+
+    result = compute_thermodynamics(parameters)
+    logger.info("Thermodynamics computation result: %s", result)
+    return jsonify({"result": result})
 
 
 if __name__ == "__main__":
     from waitress import serve
 
+    logger.info("Starting Flask server with Waitress on port 5000")
     serve(app, host="0.0.0.0", port=5000)

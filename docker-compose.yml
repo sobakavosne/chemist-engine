@@ -1,27 +1,16 @@
 services:
-  chemist-engine-reaktoro:
-    build:
-      context: ./reaktoro
-      dockerfile: Dockerfile.reaktoro
-    command: [ "conda", "run", "--no-capture-output", "-n", "rkt", "python", "src/grpc_server.py" ]
-    ports:
-      - "50051:50051"
-    restart: unless-stopped
-
   chemist-engine-flask:
+    container_name: chemist-engine-flask
     build:
       context: ./reaktoro
       dockerfile: Dockerfile.reaktoro
-    command: [ "conda", "run", "--no-capture-output", "-n", "rkt", "python", "src/app.py" ]
+    command: [ "/bin/bash", "-c", "/app/src/start_flask.sh" ]
     ports:
       - "5000:5000"
-    environment:
-      - GRPC_SERVER_HOST=chemist-engine-reaktoro
-    depends_on:
-      - chemist-engine-reaktoro
     restart: unless-stopped
 
   chemist-engine-catalyst-jl:
+    container_name: chemist-engine-catalyst-jl
     build:
       context: ./catalyst
       dockerfile: Dockerfile.catalyst-jl

@@ -32,9 +32,6 @@ SHELL ["conda", "run", "-n", "rkt", "/bin/bash", "-c"]
 # RUN python -m grpc_tools.protoc -I/app/src --python_out=/app/src --grpc_python_out=/app/src /app/src/reactions.proto
 
 COPY requirements.txt /app/
-COPY src/reactions_pb2_grpc.py /app/src/reactions_pb2_grpc.py
-COPY src/reactions_pb2.py /app/src/reactions_pb2.py
-
 
 RUN conda run -n rkt pip install -r requirements.txt
 
