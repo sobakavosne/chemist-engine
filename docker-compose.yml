@@ -1,9 +1,18 @@
 services:
-  chemist-engine-catalyst-jl:
+  chemist-engine-reaktoro:
+    container_name: chemist-engine-reaktoro
     build:
-      context: .
-      dockerfile: Dockerfile.catalyst-jl
+      context: ./reaktoro
+      dockerfile: Dockerfile.reaktoro
     ports:
       - "8082:8082"
     restart: unless-stopped
 
+  chemist-engine-catalyst-jl:
+    container_name: chemist-engine-catalyst-jl
+    build:
+      context: ./catalyst
+      dockerfile: Dockerfile.catalyst-jl
+    ports:
+      - "8083:8083"
+    restart: unless-stopped

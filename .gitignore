@@ -22,3 +22,63 @@ docs/site/
 # committed for packages, but should be committed for applications that require a static
 # environment.
 Manifest.toml
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+venv/
+.env/
+.venv/
+env/
+ENV/
+.reaktoro_env/  # any specific environment you may have
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.eggs/
+
+# Test-related
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# Mypy, Pyre, Pylint and other static analysis tools
+.mypy_cache/
+.pyre/
+.pytype/
+.pylint.d/
+
+# IDE files (for common editors like VSCode, PyCharm, etc.)
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Local configuration files
+*.env
+*.env.*
+.envrc
+*.secret
+*config.json
+
+# Logs
+*.log
+
+# Docker and environment files
+docker-compose.override.yml
+*.dockerignore
+
+# Flask-specific (optional, if using Flask)
+instance/
