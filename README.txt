@@ -30,6 +30,28 @@ Usage:
 
   --Catalyst.jl--
 
+  $> curl -X POST http://localhost:8083/api/kinetics -H "Content-Type: application/json" -d '{
+        "species": ["A", "B", "C"],
+        "reactions": [
+            {
+                "rate_constant": 1.0,
+                "reactants": ["A"],
+                "products": ["B"]
+            },
+            {
+                "rate_constant": 0.5,
+                "reactants": ["B"],
+                "products": ["C"]
+            }
+        ],
+        "initial_conditions": {
+            "A": 1.0,
+            "B": 0.0,
+            "C": 0.0
+        },
+        "tspan": [0, 10]
+    }'
+
   ...
 
 Citations:
