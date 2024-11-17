@@ -1,12 +1,11 @@
 services:
-  chemist-engine-flask:
-    container_name: chemist-engine-flask
+  chemist-engine-reaktoro:
+    container_name: chemist-engine-reaktoro
     build:
       context: ./reaktoro
       dockerfile: Dockerfile.reaktoro
-    command: [ "/bin/bash", "-c", "/app/src/start_flask.sh" ]
     ports:
-      - "5000:5000"
+      - "8082:8082"
     restart: unless-stopped
 
   chemist-engine-catalyst-jl:
@@ -15,5 +14,5 @@ services:
       context: ./catalyst
       dockerfile: Dockerfile.catalyst-jl
     ports:
-      - "8082:8082"
+      - "8083:8083"
     restart: unless-stopped
